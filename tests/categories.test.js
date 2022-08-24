@@ -2,17 +2,18 @@
 const { setupDb, signUpUser } = require('./utils.js');
 // const app = require('../lib/app');
 
-const newCategory = { name: 'Other', defaultIcon: 'https://i.imgur.com/0Z0Z7Z0.png', user_id: null };
+const newCategory = { name: 'Other', defaultIcon: 'https://i.imgur.com/0Z0Z7Z0.png', user_id: '1' };
 
-describe('/api/v1/items', () => {
+describe('/api/v1/categories', () => {
   beforeEach(setupDb);
 
   it('GET / returns all catagories for the authenticated User', async () => {
     const { agent } = await signUpUser();
+    await agent.post('/api/v1/categories').send(newCategory);
     const { status, body } = await agent.get('/api/v1/categories');
 
     expect(status).toEqual(200);
-    expect(body.length).toEqual(10);
+    expect(body.length).toEqual(1);
   });
 
   it('POST / adds a new category for the user', async () => {
@@ -22,7 +23,20 @@ describe('/api/v1/items', () => {
     expect(status).toEqual(200);
     expect(body).toEqual({
       ...newCategory,
-      id: expect.any(String)
+      id: expect.any(String),
+      user_id: expect.any(String)
+    });
+
+    it('DELETE /:id will delete a specific category', async () => {
+      const { agent } = await signUpUser();
+      const category = await agent.post('/api/v1/categories').send(newCategory);
+      const { status, body } = await agent.delete(`/api/v1/categories/${category.id}`);
+
+      expect(status).toEqual(200);
+      expect(body).toEqual(category);
+
+      const { body: categories } = await agent.get('/api/v1/categories');
+      expect(categories.length).toEqual(0);
     });
   });
 
