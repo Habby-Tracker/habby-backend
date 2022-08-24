@@ -11,6 +11,9 @@ describe('/api/v1/user', () => {
     expect(res.user).toEqual({
       id: expect.any(String),
       email: res.user.email,
+      first_name: expect.any(String),
+      last_name: expect.any(String),
+      avatar: expect.any(String),
     });
 
     const { statusCode } = await res.agent.get('/api/v1/user/verify');
@@ -37,6 +40,9 @@ describe('/api/v1/user', () => {
     expect(res.body).toEqual({
       id: expect.any(String),
       email: credentials.email,
+      first_name: expect.any(String),
+      last_name: expect.any(String),
+      avatar: expect.any(String),
     });
 
     const { statusCode } = await agent.get('/api/v1/user/verify');
