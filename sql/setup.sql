@@ -59,5 +59,13 @@ CREATE TABLE time_periods (
     day_count INT NOT NULL,
     week_count INT NOT NULL,
     month_count INT NOT NULL,
-)
+);
+
+CREATE TABLE categories (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    default_icon text NOT NULL,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
 
