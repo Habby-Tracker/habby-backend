@@ -41,4 +41,12 @@ CREATE TABLE habits (
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (status_id) REFERENCES status(id),
     FOREIGN KEY (goal_id) REFERENCES goals(id)
-)
+);
+
+CREATE TABLE habit_types (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
+
+
