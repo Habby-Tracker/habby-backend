@@ -53,4 +53,11 @@ CREATE TABLE status (
     name VARCHAR NOT NULL
 );
 
+CREATE TABLE time_periods (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    day_count INT NOT NULL,
+    week_count INT NOT NULL,
+    month_count INT NOT NULL,
+)
 
