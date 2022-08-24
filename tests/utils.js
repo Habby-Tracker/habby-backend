@@ -17,6 +17,9 @@ afterAll(closeAll);
 const mockUser = {
   email: 'test@example.com',
   password: '123456',
+  first_name: 'mock',
+  last_name: 'user',
+  avatar: 'something',
 };
 
 async function signUpUser(credentials = mockUser) {
@@ -29,4 +32,3 @@ module.exports = {
   setupDb,
   signUpUser,
 };
-
