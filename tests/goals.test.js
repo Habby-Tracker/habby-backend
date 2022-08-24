@@ -2,7 +2,9 @@ const request = require('supertest');
 const { setupDb, signUpUser } = require('./utils.js');
 const app = require('../lib/app');
 
-const newGoal = { goal_category_id: 1, goal_name: 'test goal', time_period_id: 1, habit_type_id: 1, default_habit_name: 'test habit', status_id: 1 };
+const newGoal = { goalCategoryID: '1', goalName: 'test goal', timePeriodID: '1', habitTypeID: '1', habitName: 'test habit', statusID: '1' };
+const newGoal2 = { goalCategoryID: '1', goalName: 'test goal for user 2', timePeriodID: '1', habitTypeID: '1', habitName: 'test habit for user 2', statusID: '1' };
+
 
 describe('/api/v1/items', () => {
   beforeEach(setupDb);
@@ -23,38 +25,35 @@ describe('/api/v1/items', () => {
 
   it('GET / returns all goals associated with the authenticated User', async () => {
     const { agent } = await signUpUser();
-    const { body: user1Item } = await agent.post('/api/v1/goals').send({
-      description: 'apples'
-    });
+    const { body: user1Goal } = await agent.post('/api/v1/goals').send(newGoal);
 
     const { agent: agent2 } = await signUpUser({
       email: 'user2@email.com',
       password: 'password',
+      first_name: 'user2',
+      last_name: 'user2',
+      avatar: 'user2'
     });
 
-    const { body: user2Item } = await agent2.post('/api/v1/goals').send({
-      description: 'eggs'
-    });
+    const { body: user2Goal } = await agent2.post('/api/v1/goals').send(newGoal2);
 
     const resp1 = await agent.get('/api/v1/goals');
     expect(resp1.status).toEqual(200);
-    expect(resp1.body).toEqual([user1Item]);
+    expect(resp1.body).toEqual([user1Goal]);
 
     const resp2 = await agent2.get('/api/v1/goals');
     expect(resp2.status).toEqual(200);
-    expect(resp2.body).toEqual([user2Item]);
+    expect(resp2.body).toEqual([user2Goal]);
   });
 
-  it('GET /:id should get an item', async () => {
+  it('GET /:id should get a goal', async () => {
     const { agent } = await signUpUser();
 
-    const { body: item } = await agent.post('/api/v1/goals').send({
-      description: 'apples'
-    });
-    const { status, body: got } = await agent.get(`/api/v1/goals/${item.id}`);
+    const { body: goal } = await agent.post('/api/v1/goals').send(newGoal);
+    const { status, body: got } = await agent.get(`/api/v1/goals/${goal.id}`);
 
     expect(status).toBe(200);
-    expect(got).toEqual(item);
+    expect(got).toEqual(goal);
   });
 
   it('GET / should return a 401 if not authenticated', async () => {
@@ -62,36 +61,35 @@ describe('/api/v1/items', () => {
     expect(status).toEqual(401);
   });
 
-  it('UPDATE /:id should update an item', async () => {
+  it('UPDATE /:id should update a goal', async () => {
     const { agent } = await signUpUser();
 
-    const { body: item } = await agent.post('/api/v1/goals').send({
-      description: 'apples'
-    });
+    const { body: goal } = await agent.post('/api/v1/goals').send(newGoal);
 
     const { status, body: updated } = await agent
-      .put(`/api/v1/goals/${item.id}`)
-      .send({ description: 'eggs' });
+      .put(`/api/v1/goals/${goal.id}`)
+      .send({ statusID: '2' });
 
     expect(status).toBe(200);
-    expect(updated).toEqual({ ...item, description: 'eggs' });
+    expect(updated).toEqual({ ...goal, statusID: '2' });
   });
 
   it('UPDATE /:id should 403 for invalid users', async () => {
     const { agent } = await signUpUser();
 
-    const { body: item } = await agent.post('/api/v1/goals').send({
-      description: 'apples'
-    });
+    const { body: goal } = await agent.post('/api/v1/goals').send(newGoal);
 
     const { agent: agent2 } = await signUpUser({
       email: 'user2@email.com',
       password: 'password',
+      first_name: 'user2',
+      last_name: 'user2',
+      avatar: 'user2'
     });
 
     const { status, body } = await agent2
-      .put(`/api/v1/goals/${item.id}`)
-      .send({ description: 'eggs' });
+      .put(`/api/v1/goals/${goal.id}`)
+      .send({ statusID: '2' });
 
     expect(status).toBe(403);
     expect(body).toEqual({
@@ -103,13 +101,11 @@ describe('/api/v1/items', () => {
   it('DELETE /:id should delete goals for valid user', async () => {
     const { agent } = await signUpUser();
 
-    const { body: item } = await agent.post('/api/v1/goals').send({
-      description: 'apples'
-    });
+    const { body: goal } = await agent.post('/api/v1/goals').send(newGoal);
 
-    const { status, body } = await agent.delete(`/api/v1/goals/${item.id}`);
+    const { status, body } = await agent.delete(`/api/v1/goals/${goal.id}`);
     expect(status).toBe(200);
-    expect(body).toEqual(item);
+    expect(body).toEqual(goal);
 
     const { body: goals } = await agent.get('/api/v1/goals');
 
