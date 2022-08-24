@@ -46,7 +46,7 @@ CREATE TABLE categories (
 
 CREATE TABLE goals (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id BIGINT NOT NULL,
+    user_id BIGINT,
     goal_category_id BIGINT NOT NULL,
     goal_name VARCHAR NOT NULL,
     time_period_id BIGINT NOT NULL,
@@ -103,3 +103,7 @@ INSERT INTO time_periods (name, day_count, week_count, month_count) VALUES
 ('Daily', 1, 0, 0),
 ('Weekly', 7, 1, 0),
 ('Monthly', 30, 4, 1);
+
+INSERT INTO goals (user_id, goal_category_id, goal_name, time_period_id, habit_type_id, default_habit_name, status_id) VALUES
+(null, '1', 'test goal', '1', '1', 'test goal', '1'),
+(null, '1', 'test goal 2', '1', '1', 'test goal 2', '1');
