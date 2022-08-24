@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS moods;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS time_periods;
+DROP TABLE IF EXISTS status;
+DROP TABLE IF EXISTS habit_types;
 DROP TABLE IF EXISTS habits;
 DROP TABLE IF EXISTS goals;
 DROP TABLE IF EXISTS users;
@@ -37,7 +42,7 @@ CREATE TABLE habits (
     habit_name VARCHAR NOT NULL,
     status_id BIGINT NOT NULL,
     due_date TIMESTAMP NOT NULL,
-    completed_date TIMESTAMP NOT NULL
+    completed_date TIMESTAMP NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (status_id) REFERENCES status(id),
     FOREIGN KEY (goal_id) REFERENCES goals(id)
@@ -69,3 +74,10 @@ CREATE TABLE categories (
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TABLE moods (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    mood VARCHAR NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user(id)
+)
