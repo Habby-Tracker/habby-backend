@@ -26,23 +26,19 @@ describe('/api/v1/categories', () => {
       id: expect.any(String),
       user_id: expect.any(String)
     });
-
-    it('DELETE /:id will delete a specific category', async () => {
-      const { agent } = await signUpUser();
-      const category = await agent.post('/api/v1/categories').send(newCategory);
-      const { status, body } = await agent.delete(`/api/v1/categories/${category.id}`);
-
-      expect(status).toEqual(200);
-      expect(body).toEqual(category);
-
-      const { body: categories } = await agent.get('/api/v1/categories');
-      expect(categories.length).toEqual(0);
-    });
   });
+  
+  it('DELETE /:id will delete a specific category', async () => {
+    const { agent } = await signUpUser();
+    const { body: category } = await agent.post('/api/v1/categories').send(newCategory);
+    const { status, body } = await agent.delete(`/api/v1/categories/${category.id}`);
 
+    expect(status).toEqual(200);
+    expect(body).toEqual(category);
 
-
-
+    const { body: categories } = await agent.get('/api/v1/categories');
+    expect(categories.length).toEqual(0);
+  });
 
 
 });
