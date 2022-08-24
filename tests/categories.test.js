@@ -16,6 +16,15 @@ describe('/api/v1/categories', () => {
     expect(body.length).toEqual(1);
   });
 
+  it('GET /:id should return a specific category', async () => {
+    const { agent } = await signUpUser();
+    const { body: category } = await agent.post('/api/v1/categories').send(newCategory);
+    const { status, body } = await agent.get(`/api/v1/categories/${category.id}`);
+
+    expect(status).toEqual(200);
+    expect(body).toEqual(category);
+  });
+
   it('POST / adds a new category for the user', async () => {
     const { agent } = await signUpUser();
     const { status, body } = await agent.post('/api/v1/categories').send(newCategory);
