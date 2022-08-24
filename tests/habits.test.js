@@ -4,20 +4,14 @@ const {
   signUpUser
 } = require('./utils.js');
 const app = require('../lib/app');
+const newHabit = { goalID:'1', habitName: 'read', statusID: '1', dueDate: '2022-03-23 13:30:00', completedDate:'2022-03-24 13:30:00' };
+const newHabit2 = { goalID:'2', habitName: 'eat veggies', statusID: '1', dueDate: '2022-03-29 13:30:00', completedDate:'2022-03-30 13:30:00' };
 
 describe('/api/v1/items', () => {
   beforeEach(setupDb);
 
   it('POST / creates a new habit with the current user', async () => {
     const { agent, user } = await signUpUser();
-
-    const newHabit = { 
-      goalID:'1',
-      habitName: 'read',
-      statusID: '5', 
-      dueDate: '2022-03-23 13:30:00',
-      completedDate:'2022-03-24 13:30:00'
-    };
     const { status, body } = await agent.post('/api/v1/habits').send(newHabit);
 
     expect(status).toEqual(200);
