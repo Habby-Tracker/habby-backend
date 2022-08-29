@@ -5,10 +5,9 @@ describe('/api/v1/habitTypes', () => {
 
   it('GET / returns all habit types', async () => {
     const { agent } = await signUpUser();
-    const { status, body } = await agent.get('/api/v1/habitTypes');
+    const { status, body } = await agent.get('/api/v1/habit-types');
 
     expect(status).toEqual(200);
     expect(body.length).toEqual(3);
   });
-
 });
