@@ -32,7 +32,7 @@ describe('/api/v1/items', () => {
       ...newGoal,
       id: expect.any(String),
       user_id: user.id,
-      created_at: expect.any(String),
+      createdAt: expect.any(String),
     });
   });
 
@@ -54,11 +54,11 @@ describe('/api/v1/items', () => {
 
     const resp1 = await agent.get('/api/v1/goals');
     expect(resp1.status).toEqual(200);
-    expect(resp1.body).toEqual([user1Goal]);
-    console.log(resp1.body);
+    expect(resp1.body).toEqual([{ ...user1Goal, status: 'Active' }]);
+
     const resp2 = await agent2.get('/api/v1/goals');
     expect(resp2.status).toEqual(200);
-    expect(resp2.body).toEqual([user2Goal]);
+    expect(resp2.body).toEqual([{ ...user2Goal, status: 'Active' }]);
   });
 
   it('GET /:id should get a goal', async () => {
@@ -68,7 +68,7 @@ describe('/api/v1/items', () => {
     const { status, body: got } = await agent.get(`/api/v1/goals/${goal.id}`);
 
     expect(status).toBe(200);
-    expect(got).toEqual(goal);
+    expect(got).toEqual({ ...goal, status: 'Active' });
   });
 
   it('GET / should return a 401 if not authenticated', async () => {
