@@ -14,6 +14,7 @@ describe('/api/v1/user', () => {
       first_name: expect.any(String),
       last_name: expect.any(String),
       avatar: expect.any(String),
+      createdAt: expect.any(String),
     });
 
     const { statusCode } = await res.agent.get('/api/v1/user/verify');
@@ -43,6 +44,7 @@ describe('/api/v1/user', () => {
       first_name: expect.any(String),
       last_name: expect.any(String),
       avatar: expect.any(String),
+      createdAt: expect.any(String),
     });
 
     const { statusCode } = await agent.get('/api/v1/user/verify');
