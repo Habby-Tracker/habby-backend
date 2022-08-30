@@ -31,9 +31,7 @@ CREATE TABLE habit_types (
 CREATE TABLE time_periods (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR NOT NULL,
-    day_count INT NOT NULL,
-    week_count INT NOT NULL,
-    month_count INT NOT NULL
+    day_count INT NOT NULL
 );
 
 CREATE TABLE categories (
@@ -50,6 +48,7 @@ CREATE TABLE goals (
     goal_category_id BIGINT NOT NULL,
     goal_name VARCHAR NOT NULL,
     time_period_id BIGINT NOT NULL,
+    time_period_count INT NOT NULL,
     habit_type_id BIGINT NOT NULL,
     default_habit_name VARCHAR NOT NULL,
     status_id BIGINT NOT NULL DEFAULT 1,
@@ -84,7 +83,7 @@ CREATE TABLE moods (
 );
 
 
-INSERT INTO habit_types (name) VALUES ('Daily'), ('Weekly'), ('Monthly');
+INSERT INTO habit_types (name) VALUES ('Daily'), ('Weekly');
 
 INSERT INTO status (name) VALUES ('Active'), ('Inactive'), ('Completed');
 
@@ -100,11 +99,11 @@ INSERT INTO categories (name, default_icon, user_id) VALUES
  ('Spiritual', 'https://i.imgur.com/0Z0Z7Z0.png', null), 
  ('Other', 'https://i.imgur.com/0Z0Z7Z0.png', null);
 
-INSERT INTO time_periods (name, day_count, week_count, month_count) VALUES
-('Daily', 1, 0, 0),
-('Weekly', 7, 1, 0),
-('Monthly', 30, 4, 1);
+INSERT INTO time_periods (name, day_count) VALUES
+('Day', 1),
+('Week', 7),
+('Month', 30);
 
-INSERT INTO goals (user_id, goal_category_id, goal_name, time_period_id, habit_type_id, default_habit_name, status_id) VALUES
-(null, '1', 'test goal', '1', '1', 'test goal', '1'),
-(null, '1', 'test goal 2', '1', '1', 'test goal 2', '1');
+INSERT INTO goals (user_id, goal_category_id, goal_name, time_period_id, habit_type_id, default_habit_name, status_id, time_period_count) VALUES
+(null, '1', 'test goal', '1', '1', 'test goal', '1', 3),
+(null, '1', 'test goal 2', '1', '1', 'test goal 2', '1', 20);
