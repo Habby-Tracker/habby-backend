@@ -118,6 +118,10 @@ describe('/api/v1/items', () => {
 
     const { body: goal } = await agent.post('/api/v1/goals').send(newGoal);
 
+    const deletedHabit = await agent.get(`/api/v1/habits/goal/${goal.id}`);
+
+    await agent.delete(`/api/v1/habits/${deletedHabit.body[0].id}`);
+
     const { status, body } = await agent.delete(`/api/v1/goals/${goal.id}`);
     expect(status).toBe(200);
     expect(body).toEqual(goal);
