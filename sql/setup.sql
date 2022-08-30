@@ -52,7 +52,7 @@ CREATE TABLE goals (
     time_period_id BIGINT NOT NULL,
     habit_type_id BIGINT NOT NULL,
     default_habit_name VARCHAR NOT NULL,
-    status_id BIGINT NOT NULL,
+    status_id BIGINT NOT NULL DEFAULT 1,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (status_id) REFERENCES status (id),
@@ -63,12 +63,12 @@ CREATE TABLE goals (
 
 CREATE TABLE habits (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    goal_id BIGINT NOT NULL, 
+    goal_id INT NOT NULL, 
     user_id BIGINT NOT NULL,
     habit_name VARCHAR NOT NULL,
-    status_id BIGINT NOT NULL,
+    status_id BIGINT NOT NULL DEFAULT 1,
     due_date TIMESTAMP NOT NULL,
-    completed_date TIMESTAMP NOT NULL,
+    completed_date TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (status_id) REFERENCES status (id),
     FOREIGN KEY (goal_id) REFERENCES goals(id)
