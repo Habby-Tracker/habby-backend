@@ -49,7 +49,7 @@ CREATE TABLE goals (
     goal_name VARCHAR NOT NULL,
     time_period_id BIGINT NOT NULL,
     time_period_count INT NOT NULL,
-    habit_type_id BIGINT NOT NULL,
+    habit_type_id BIGINT,
     default_habit_name VARCHAR NOT NULL,
     status_id BIGINT NOT NULL DEFAULT 1,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -100,9 +100,9 @@ INSERT INTO categories (name, default_icon, user_id) VALUES
  ('Other', 'https://i.imgur.com/0Z0Z7Z0.png', null);
 
 INSERT INTO time_periods (name, day_count) VALUES
-('Day', 1),
-('Week', 7),
-('Month', 30);
+('Days', 1),
+('Weeks', 7),
+('Months', 30);
 
 INSERT INTO goals (user_id, goal_category_id, goal_name, time_period_id, habit_type_id, default_habit_name, status_id, time_period_count) VALUES
 (null, '1', 'test goal', '1', '1', 'test goal', '1', 3),
