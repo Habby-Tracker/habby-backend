@@ -4,10 +4,10 @@ const {
   signUpUser
 } = require('./utils.js');
 const app = require('../lib/app');
-const newHabit = { goalID:'1', habitName: 'read', statusID: '1', dueDate: '2022-03-23T20:30:00.000Z', completedDate:'2022-03-24T20:30:00.000Z' };
-const newHabit2 = { goalID:'2', habitName: 'eat veggies', statusID: '1', dueDate: '2022-03-29 13:30:00', completedDate:'2022-03-30 13:30:00' };
+const newHabit = { goalID: 1, habitName: 'read', statusID: '1', dueDate: '2022-03-23T20:30:00.000Z', completedDate:'2022-03-24T20:30:00.000Z' };
+const newHabit2 = { goalID: 2, habitName: 'eat veggies', statusID: '1', dueDate: '2022-03-29 13:30:00', completedDate:'2022-03-30 13:30:00' };
 
-describe('/api/v1/items', () => {
+describe('/api/v1/habits', () => {
   beforeEach(setupDb);
 
   it('POST / creates a new habit with the current user', async () => {
@@ -69,7 +69,7 @@ describe('/api/v1/items', () => {
       .send({ goalID: '2' });
 
     expect(status).toBe(200);
-    expect(updated).toEqual({ ...habit, goalID: '2' });
+    expect(updated).toEqual({ ...habit, goalID: 2 });
   });
 
   it('UPDATE /:id should 403 for invalid users', async () => {
