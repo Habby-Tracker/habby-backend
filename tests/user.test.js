@@ -84,4 +84,23 @@ describe('/api/v1/user', () => {
     const { statusCode } = await agent.get('/api/v1/user/verify');
     expect(statusCode).toBe(401);
   });
+
+  it('/update', async () => {
+    const { agent } = await signUpUser();
+
+    const { body, statusCode } = await agent.put('/api/v1/user/update').send({
+      first_name: 'James',
+      last_name: 'Wise',
+      email: 'test@example.com',
+    });
+    expect(statusCode).toEqual(200);
+    expect(body).toEqual({
+      id: '1',
+      email: 'test@example.com',
+      first_name: 'James',
+      last_name: 'Wise',
+      avatar: 'something',
+      createdAt: expect.any(String),
+    });
+  });
 });
