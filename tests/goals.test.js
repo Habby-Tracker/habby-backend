@@ -6,6 +6,7 @@ const newGoal = {
   goalCategoryID: '1',
   goalName: 'test goal',
   timePeriodID: '1',
+  timePeriodCount: 3,
   habitTypeID: '1',
   habitName: 'test habit',
   statusID: '1',
@@ -14,6 +15,7 @@ const newGoal2 = {
   goalCategoryID: '1',
   goalName: 'test goal for user 2',
   timePeriodID: '1',
+  timePeriodCount: 3,
   habitTypeID: '1',
   habitName: 'test habit for user 2',
   statusID: '1',
@@ -22,7 +24,7 @@ const newGoal2 = {
 describe('/api/v1/items', () => {
   beforeEach(setupDb);
 
-  it('POST / creates a new shopping item with the current user', async () => {
+  it('POST / creates a new goal for the current user', async () => {
     const { agent, user } = await signUpUser();
 
     const { status, body } = await agent.post('/api/v1/goals').send(newGoal);
