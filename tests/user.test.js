@@ -11,8 +11,8 @@ describe('/api/v1/user', () => {
     expect(res.user).toEqual({
       id: expect.any(String),
       email: res.user.email,
-      first_name: expect.any(String),
-      last_name: expect.any(String),
+      firstName: null,
+      lastName: null,
       avatar: expect.any(String),
       createdAt: expect.any(String),
     });
@@ -41,8 +41,8 @@ describe('/api/v1/user', () => {
     expect(res.body).toEqual({
       id: expect.any(String),
       email: credentials.email,
-      first_name: expect.any(String),
-      last_name: expect.any(String),
+      firstName: null,
+      lastName: null,
       avatar: expect.any(String),
       createdAt: expect.any(String),
     });
@@ -97,10 +97,11 @@ describe('/api/v1/user', () => {
     expect(body).toEqual({
       id: '1',
       email: 'test@example.com',
-      first_name: 'James',
-      last_name: 'Wise',
+      firstName: 'James',
+      lastName: 'Wise',
       avatar: 'something',
       createdAt: expect.any(String),
     });
   });
 });
+
