@@ -8,6 +8,6 @@ describe('/api/v1/habitTypes', () => {
     const { status, body } = await agent.get('/api/v1/habit-types');
 
     expect(status).toEqual(200);
-    expect(body.length).toEqual(3);
+    expect(body.length).toEqual(2);
   });
 });
