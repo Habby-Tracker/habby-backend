@@ -13,7 +13,7 @@ describe('/api/v1/categories', () => {
     const { status, body } = await agent.get('/api/v1/categories');
 
     expect(status).toEqual(200);
-    expect(body.length).toEqual(1);
+    expect(body.length).toEqual(11);
   });
 
   it('GET /:id should return a specific category', async () => {
@@ -46,7 +46,7 @@ describe('/api/v1/categories', () => {
     expect(body).toEqual(category);
 
     const { body: categories } = await agent.get('/api/v1/categories');
-    expect(categories.length).toEqual(0);
+    expect(categories.length).toEqual(10);
   });
 
 
