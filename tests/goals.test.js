@@ -4,7 +4,6 @@ const {
   signUpUser
 } = require('./utils.js');
 const app = require('../lib/app');
-const { deleteHabits } = require('../lib/services/GoalService.js');
 
 const newGoal = {
   goalCategoryID: '1',
