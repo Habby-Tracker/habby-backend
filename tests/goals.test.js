@@ -59,11 +59,11 @@ describe('/api/v1/items', () => {
 
     const resp1 = await agent.get('/api/v1/goals');
     expect(resp1.status).toEqual(200);
-    expect(resp1.body[0]).toEqual({ ...user1Goal.goal, status: 'Active' });
+    expect(resp1.body[0]).toEqual({ ...user1Goal.goal, status: 'Active', category: expect.any(String) });
 
     const resp2 = await agent2.get('/api/v1/goals');
     expect(resp2.status).toEqual(200);
-    expect(resp2.body[0]).toEqual({ ...user2Goal.goal, status: 'Active' });
+    expect(resp2.body[0]).toEqual({ ...user2Goal.goal, status: 'Active', category: expect.any(String) });
   });
 
   it('GET /:id should get a goal', async () => {
