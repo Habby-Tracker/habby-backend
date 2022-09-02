@@ -73,7 +73,7 @@ describe('/api/v1/items', () => {
     const { status, body: got } = await agent.get(`/api/v1/goals/${body.goal.id}`);
 
     expect(status).toBe(200);
-    expect(got).toEqual({ ...body.goal, status: 'Active' });
+    expect(got).toEqual({ ...body.goal, status: 'Active', category: expect.any(String) });
   });
 
   it('GET / should return a 401 if not authenticated', async () => {
@@ -91,7 +91,7 @@ describe('/api/v1/items', () => {
       .send({ statusID: '3' });
 
     expect(status).toBe(200);
-    expect(updated).toEqual({ ...body.goal, statusID: '3' });
+    expect(updated).toEqual({ ...body.goal, statusID: '3', status: 'Completed', category: expect.any(String) });
   });
 
   it('UPDATE /:id should 403 for invalid users', async () => {
